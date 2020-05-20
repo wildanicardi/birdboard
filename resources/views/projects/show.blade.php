@@ -16,7 +16,16 @@
                 <h2 class="text-lg text-grey font-normal mb-3">Task</h2>
                 @foreach ($project->tasks as $task)
 
-                <div class="bg-white mr-4 p-5 rounded shadow mb-3">{{$task->body}}</div>
+                <div class="bg-white mr-4 p-5 rounded shadow mb-3">
+                    <form action="{{$task->path()}}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        <div class="flex">
+                            <input type="text" name="body" value="{{$task->body}}" class="w-full {{$task->completed ? 'text-green-200' : ''}}">
+                            <input type="checkbox" name="completed" onchange="this.form.submit()"{{$task->completed ? 'checked' : ''}} >
+                        </div>
+                    </form>
+                </div>
                 @endforeach
                 <div class="bg-white mr-4 p-5 rounded shadow mb-3">
                     <form action="{{$project->path().'/tasks'}}" method="post">
