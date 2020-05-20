@@ -44,9 +44,9 @@ class ManageProjectsTest extends TestCase
         $this->withoutExceptionHandling();
         $project = factory('App\Project')->create(['owner_id' => auth()->id()]);
 
-        $this->get($project->path())
+        $this->Get($project->path())
             ->assertSee($project->title)
-            ->assertSee($project->description);
+            ->assertSee(\Illuminate\Support\Str::limit($project->Description, 100));
     }
     /** @test **/
     public function an_authenticated_user_cannot_view_the_projects_of_others()
