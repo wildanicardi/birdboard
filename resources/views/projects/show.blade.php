@@ -3,9 +3,9 @@
 <header class="flex items-center mb-3 py-2 px-4">
     <div class="flex justify-between items-end w-full">
         <p class="text-grey text-sm font-normal"><a href="/projects">My Projects</a>/ {{$project->title}}</p>
-        <a href="/projects/create"
-            class="button bg-blue-500 hover:bg-blue-700 text-sm text-white font-bold py-2 px-4 rounded-lg">New
-            Project</a>
+        <a href="{{$project->path().'/edit'}}"
+            class="button bg-blue-500 hover:bg-blue-700 text-sm text-white font-bold py-2 px-4 rounded-lg">
+            Edit Project</a>
     </div>
 
 </header>
@@ -35,13 +35,13 @@
                 </div>
 
             </div>
-            <div class="mb-6">
+            <div class="mb-6 mr-4">
                 <h2 class="text-lg text-grey font-normal mb-3">General Notes</h2>
                 <form action="{{$project->path()}}" method="POST">
                         @method('PATCH')
                         @csrf
                     <textarea
-                        class="bg-white mr-4 p-5 rounded shadow w-full mb-4"
+                        class="bg-white p-4 rounded shadow w-full mb-4"
                         style="min-height:200px"
                         placeholder="Anything special that you want to make a note off" name="notes">
                         {{$project->notes}}
