@@ -1,1 +1,1 @@
-You Uncompleted "{{$activity->subject->body}}"
+{{$activity->user->name}} Uncompleted "{{$activity->subject->body}}"

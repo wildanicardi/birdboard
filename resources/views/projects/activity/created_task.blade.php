@@ -1,1 +1,1 @@
-You Created "{{$activity->subject->body}}"
+{{$activity->user->name}} Created "{{$activity->subject->body}}"
