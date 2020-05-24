@@ -99,6 +99,12 @@ class ManageProjectsTest extends TestCase
             ->assertSee(\Illuminate\Support\Str::limit($project->Description, 100));
     }
     /** @test **/
+    public function a_user_can_see_all_projects_they_have_been_invited_to_on_their_dashboard()
+    {
+        $project = tap(ProjectFactory::create())->invite($this->signIn());
+        $this->get('/projects')->assertSee($project->title);
+    }
+    /** @test **/
     public function an_authenticated_user_cannot_view_the_projects_of_others()
     {
         $this->signIn();
