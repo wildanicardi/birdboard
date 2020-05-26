@@ -2,9 +2,9 @@
 @section('content')
 <header class="lg:flex items-center mb-3 py-4">
     <div class="lg:flex justify-between items-end w-full">
-        <h2 class="text-grey text-sm font-normal">My Projects</h2>
+        <h2 class="text-muted text-base font-light">My Projects</h2>
         <a href="/projects/create"
-            class="bg-blue-500 hover:bg-blue-200 text-sm text-white font-bold py-2 px-4 rounded-lg">New
+            class="button">New
             Project</a>
     </div>
 
