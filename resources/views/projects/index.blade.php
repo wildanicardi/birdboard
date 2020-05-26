@@ -4,7 +4,7 @@
     <div class="lg:flex justify-between items-end w-full">
         <h2 class="text-muted text-base font-light">My Projects</h2>
         <a href="/projects/create"
-            class="button">New
+            class="button" @click.prevent="$modal.show('new-project')">New
             Project</a>
     </div>
 
@@ -18,4 +18,5 @@
     <div>No Project Yet.</div>
     @endforelse
 </main>
+<new-project-modal></new-project-modal>
 @endsection
