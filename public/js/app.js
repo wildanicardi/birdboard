@@ -2005,6 +2005,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2012,7 +2033,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         title: "",
         description: "",
         tasks: [{
-          value: ""
+          body: ""
         }]
       },
       errors: {}
@@ -2021,7 +2042,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     addTaskInput: function addTaskInput() {
       this.form.tasks.push({
-        value: ""
+        body: ""
       });
     },
     addProject: function addProject() {
@@ -2044,7 +2065,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 6:
                 _context.prev = 6;
                 _context.t0 = _context["catch"](0);
-                _this.errors = err.response.data.errors;
+                _this.errors = _context.t0.response.data.errors;
 
               case 9:
               case "end":
@@ -38531,25 +38552,21 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: task.value,
-                          expression: "task.value"
+                          value: task.body,
+                          expression: "task.body"
                         }
                       ],
                       key: index,
                       staticClass:
                         "border border-muted-light mb-2 p-2 text-xs block w-full rounded",
-                      attrs: {
-                        type: "text",
-                        name: "title",
-                        placeholder: "Task 1"
-                      },
-                      domProps: { value: task.value },
+                      attrs: { type: "text", placeholder: "Task 1" },
+                      domProps: { value: task.body },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(task, "value", $event.target.value)
+                          _vm.$set(task, "body", $event.target.value)
                         }
                       }
                     })
@@ -38562,9 +38579,55 @@ var render = function() {
                 "button",
                 {
                   staticClass: "inline-flex items-center text-xs",
+                  attrs: { type: "button" },
                   on: { click: _vm.addTaskInput }
                 },
-                [_c("span", [_vm._v("Add New Task Field")])]
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "mr-2",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "18",
+                        height: "18",
+                        viewBox: "0 0 18 18"
+                      }
+                    },
+                    [
+                      _c(
+                        "g",
+                        {
+                          attrs: {
+                            fill: "none",
+                            "fill-rule": "evenodd",
+                            opacity: ".307"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              stroke: "#000",
+                              "stroke-opacity": ".012",
+                              "stroke-width": "0",
+                              d: "M-3-3h24v24H-3z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            attrs: {
+                              fill: "#000",
+                              d:
+                                "M9 0a9 9 0 0 0-9 9c0 4.97 4.02 9 9 9A9 9 0 0 0 9 0zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm1-11H8v3H5v2h3v3h2v-3h3V8h-3V5z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Add New Task Field")])
+                ]
               )
             ])
           ]),
@@ -38574,6 +38637,7 @@ var render = function() {
               "button",
               {
                 staticClass: "button is-outlined mr-4",
+                attrs: { type: "button" },
                 on: {
                   click: function($event) {
                     return _vm.$modal.hide("new-project")
