@@ -30,6 +30,10 @@ Vue.component(
     "new-project-modal",
     require("./components/NewProjectModal.vue").default
 );
+Vue.component(
+    "dropdown",
+    require("./components/Dropdown.vue").default
+);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -19313,6 +19313,25 @@ button {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+.dropdown-menu-link {
+  display: block;
+  color: var(--text-default-color);
+  text-decoration: none;
+  font-size: 0.875rem;
+  line-height: 2;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.dropdown-menu-link:hover {
+  text-decoration: underline;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-toggle > button:focus {
+  outline: 0;
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
