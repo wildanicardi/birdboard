@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body class="theme-dark bg-page">
+<body class="theme-light bg-page">
     <div id="app">
         <nav class="flex items-center justify-between flex-wrap bg-header section p-6 py-4">
             <div class="flex lg:items-center flex-shrink-0 text-white mr-6">
@@ -52,6 +52,7 @@
                     </a>
                     @endif
                     @else
+                    <theme-switcher></theme-switcher>
                     <a href="#responsive-header"
                         class="block font-bold text-ms lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         {{ Auth::user()->name }}
