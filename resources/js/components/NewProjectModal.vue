@@ -1,52 +1,60 @@
 <template>
   <modal name="new-project" classes="p-10 bg-card rounded-lg" height="auto">
-    <h1 class="font-normal mb-16 text-center text-2xl">
+    <h1
+      class="font-normal mb-16 text-center text-2xl text-muted font-light bg-card"
+    >
       Let's Start Something New
     </h1>
     <form @submit.prevent="addProject">
       <div class="flex">
         <div class="flex-1 mr-4">
           <div class="mb-4">
-            <label for="title" class="text-sm block mb-2">Title</label>
+            <label for="title" class="text-sm block mb-2 text-default bg-card"
+              >Title</label
+            >
             <input
               type="text"
               id="title"
               v-model="form.title"
-              class="border p-2 text-xs block w-full rounded"
-              :class="errors.title ? 'border-error' : 'border-muted-light'"
+              class="border p-2 text-xs block w-full rounded text-default bg-card"
+              :class="form.errors.title ? 'border-error' : 'border-muted-light'"
             />
             <span
               class="text-xs italic text-error"
-              v-if="errors.title"
-              v-text="errors.title[0]"
+              v-if="form.errors.title"
+              v-text="form.errors.title[0]"
             ></span>
           </div>
           <div class="mb-4">
-            <label for="description" class="text-sm block mb-2"
+            <label
+              for="description"
+              class="text-sm block mb-2 text-default bg-card"
               >Description</label
             >
             <textarea
               id="description"
               v-model="form.description"
-              class="border border-muted-light p-2 text-xs block w-full rounded"
+              class="border border-muted-light p-2 text-xs block w-full rounded text-default bg-card"
               :class="
-                errors.description ? 'border-error' : 'border-muted-light'
+                form.errors.description ? 'border-error' : 'border-muted-light'
               "
               rows="7"
             ></textarea>
             <span
               class="text-xs italic text-error"
-              v-if="errors.description"
-              v-text="errors.description[0]"
+              v-if="form.errors.description"
+              v-text="form.errors.description[0]"
             ></span>
           </div>
         </div>
         <div class="flex-1 ml-4">
           <div class="mb-4">
-            <label class="text-sm block mb-2">Need Some Tasks?</label>
+            <label class="text-sm block mb-2 text-default"
+              >Need Some Tasks?</label
+            >
             <input
               type="text"
-              class="border border-muted-light mb-2 p-2 text-xs block w-full rounded"
+              class="border border-muted-light mb-2 p-2 text-xs block w-full rounded text-default bg-card"
               v-for="(task, index) in form.tasks"
               :key="index"
               v-model="task.body"
@@ -55,7 +63,7 @@
           </div>
           <button
             type="button"
-            class="inline-flex items-center text-xs"
+            class="button inline-flex items-center text-xs"
             @click="addTaskInput"
           >
             <svg
@@ -78,7 +86,7 @@
                 ></path>
               </g>
             </svg>
-            <span>Add New Task Field</span>
+            <span class="text-default">Add New Task Field</span>
           </button>
         </div>
       </div>
@@ -97,15 +105,15 @@
 </template>
 
 <script>
+import BirdboardForm from "./BirdboardForm";
 export default {
   data() {
     return {
-      form: {
+      form: new BirdboardForm({
         title: "",
         description: "",
         tasks: [{ body: "" }]
-      },
-      errors: {}
+      })
     };
   },
   methods: {
@@ -113,11 +121,12 @@ export default {
       this.form.tasks.push({ body: "" });
     },
     async addProject() {
-      try {
-        location = (await axios.post("/projects", this.form)).data.message;
-      } catch (error) {
-        this.errors = error.response.data.errors;
+      if (!this.form.tasks[0].body) {
+        delete this.form.originalData.tasks;
       }
+      this.form
+        .submit("/projects")
+        .then(response => (location = response.data.message));
     }
   }
 };

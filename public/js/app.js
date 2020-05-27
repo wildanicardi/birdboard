@@ -1922,6 +1922,7 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _BirdboardForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BirdboardForm */ "./resources/js/components/BirdboardForm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2026,17 +2027,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      form: {
+      form: new _BirdboardForm__WEBPACK_IMPORTED_MODULE_1__["default"]({
         title: "",
         description: "",
         tasks: [{
           body: ""
         }]
-      },
-      errors: {}
+      })
     };
   },
   methods: {
@@ -2053,26 +2062,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return axios.post("/projects", _this.form);
+                if (!_this.form.tasks[0].body) {
+                  delete _this.form.originalData.tasks;
+                }
 
-              case 3:
-                location = _context.sent.data.message;
-                _context.next = 9;
-                break;
+                _this.form.submit("/projects").then(function (response) {
+                  return location = response.data.message;
+                });
 
-              case 6:
-                _context.prev = 6;
-                _context.t0 = _context["catch"](0);
-                _this.errors = _context.t0.response.data.errors;
-
-              case 9:
+              case 2:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 6]]);
+        }, _callee);
       }))();
     }
   }
@@ -38430,9 +38433,14 @@ var render = function() {
       }
     },
     [
-      _c("h1", { staticClass: "font-normal mb-16 text-center text-2xl" }, [
-        _vm._v("\n    Let's Start Something New\n  ")
-      ]),
+      _c(
+        "h1",
+        {
+          staticClass:
+            "font-normal mb-16 text-center text-2xl text-muted font-light bg-card"
+        },
+        [_vm._v("\n    Let's Start Something New\n  ")]
+      ),
       _vm._v(" "),
       _c(
         "form",
@@ -38451,7 +38459,7 @@ var render = function() {
                 _c(
                   "label",
                   {
-                    staticClass: "text-sm block mb-2",
+                    staticClass: "text-sm block mb-2 text-default bg-card",
                     attrs: { for: "title" }
                   },
                   [_vm._v("Title")]
@@ -38466,8 +38474,9 @@ var render = function() {
                       expression: "form.title"
                     }
                   ],
-                  staticClass: "border p-2 text-xs block w-full rounded",
-                  class: _vm.errors.title
+                  staticClass:
+                    "border p-2 text-xs block w-full rounded text-default bg-card",
+                  class: _vm.form.errors.title
                     ? "border-error"
                     : "border-muted-light",
                   attrs: { type: "text", id: "title" },
@@ -38482,10 +38491,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.errors.title
+                _vm.form.errors.title
                   ? _c("span", {
                       staticClass: "text-xs italic text-error",
-                      domProps: { textContent: _vm._s(_vm.errors.title[0]) }
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.title[0])
+                      }
                     })
                   : _vm._e()
               ]),
@@ -38494,7 +38505,7 @@ var render = function() {
                 _c(
                   "label",
                   {
-                    staticClass: "text-sm block mb-2",
+                    staticClass: "text-sm block mb-2 text-default bg-card",
                     attrs: { for: "description" }
                   },
                   [_vm._v("Description")]
@@ -38510,8 +38521,8 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "border border-muted-light p-2 text-xs block w-full rounded",
-                  class: _vm.errors.description
+                    "border border-muted-light p-2 text-xs block w-full rounded text-default bg-card",
+                  class: _vm.form.errors.description
                     ? "border-error"
                     : "border-muted-light",
                   attrs: { id: "description", rows: "7" },
@@ -38526,11 +38537,11 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.errors.description
+                _vm.form.errors.description
                   ? _c("span", {
                       staticClass: "text-xs italic text-error",
                       domProps: {
-                        textContent: _vm._s(_vm.errors.description[0])
+                        textContent: _vm._s(_vm.form.errors.description[0])
                       }
                     })
                   : _vm._e()
@@ -38542,9 +38553,11 @@ var render = function() {
                 "div",
                 { staticClass: "mb-4" },
                 [
-                  _c("label", { staticClass: "text-sm block mb-2" }, [
-                    _vm._v("Need Some Tasks?")
-                  ]),
+                  _c(
+                    "label",
+                    { staticClass: "text-sm block mb-2 text-default" },
+                    [_vm._v("Need Some Tasks?")]
+                  ),
                   _vm._v(" "),
                   _vm._l(_vm.form.tasks, function(task, index) {
                     return _c("input", {
@@ -38558,7 +38571,7 @@ var render = function() {
                       ],
                       key: index,
                       staticClass:
-                        "border border-muted-light mb-2 p-2 text-xs block w-full rounded",
+                        "border border-muted-light mb-2 p-2 text-xs block w-full rounded text-default bg-card",
                       attrs: { type: "text", placeholder: "Task 1" },
                       domProps: { value: task.body },
                       on: {
@@ -38578,7 +38591,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "inline-flex items-center text-xs",
+                  staticClass: "button inline-flex items-center text-xs",
                   attrs: { type: "button" },
                   on: { click: _vm.addTaskInput }
                 },
@@ -38626,7 +38639,9 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _c("span", [_vm._v("Add New Task Field")])
+                  _c("span", { staticClass: "text-default" }, [
+                    _vm._v("Add New Task Field")
+                  ])
                 ]
               )
             ])
@@ -50952,6 +50967,85 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/BirdboardForm.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/BirdboardForm.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var BirdboardForm = /*#__PURE__*/function () {
+  function BirdboardForm(data) {
+    _classCallCheck(this, BirdboardForm);
+
+    this.originalData = JSON.parse(JSON.stringify(data));
+    Object.assign(this, data);
+    this.errors = {};
+    this.submitted = false;
+  }
+
+  _createClass(BirdboardForm, [{
+    key: "data",
+    value: function data() {
+      var _this = this;
+
+      return Object.keys(this.originalData).reduce(function (data, attribute) {
+        data[attribute] = _this[attribute];
+        return data;
+      }, {});
+    }
+  }, {
+    key: "post",
+    value: function post(endpoint) {
+      this.submit(endpoint);
+    }
+  }, {
+    key: "patch",
+    value: function patch(endpoint) {
+      this.submit(endpoint, 'patch');
+    }
+  }, {
+    key: "delete",
+    value: function _delete(endpoint) {
+      this.submit(endpoint, 'delete');
+    }
+  }, {
+    key: "submit",
+    value: function submit(endpoint) {
+      var requestType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'post';
+      return axios[requestType](endpoint, this.data()).then(this.onSuccess.bind(this))["catch"](this.onFail.bind(this));
+    }
+  }, {
+    key: "onSuccess",
+    value: function onSuccess(response) {
+      this.submitted = true;
+      this.errors = {};
+      return response;
+    }
+  }, {
+    key: "onFail",
+    value: function onFail(error) {
+      this.errors = error.response.data.errors;
+      this.submitted = false;
+      throw error;
+    }
+  }]);
+
+  return BirdboardForm;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (BirdboardForm);
 
 /***/ }),
 
