@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * View All Project.
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +21,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create a new project.
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,11 +30,10 @@ class ProjectController extends Controller
         return view('projects.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
+     /**
+     * Persist a new project.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function store()
     {
@@ -49,11 +48,13 @@ class ProjectController extends Controller
         return redirect($project->path());
     }
 
-    /**
-     * Display the specified resource.
+   /**
+     * Show a single project.
      *
-     * @param  \App\Project  $project
+     * @param Project $project
+     *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Project $project)
     {
@@ -62,9 +63,9 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit the project.
      *
-     * @param  \App\Project  $project
+     * @param  Project $project
      * @return \Illuminate\Http\Response
      */
     public function edit(Project $project)
@@ -72,12 +73,12 @@ class ProjectController extends Controller
         return view('projects/edit', compact('project'));
     }
 
-    /**
-     * Update the specified resource in storage.
+   /**
+     * Update the project.
      *
-     * @param  \Illuminate\Http\UpdateProjectRequest  $request
-     * @param  \App\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param  Project $project
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Project $project)
     {
@@ -89,10 +90,11 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy the project.
      *
-     * @param  \App\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param  Project $project
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Project $project)
     {
@@ -100,6 +102,11 @@ class ProjectController extends Controller
         $project->delete();
         return redirect('/projects');
     }
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
     public function validateProject()
     {
         return request()->validate([

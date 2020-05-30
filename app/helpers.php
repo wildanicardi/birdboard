@@ -1,5 +1,12 @@
 <?php
 
+
+/**
+ * Generate a URL to a gravatar thumbnail.
+ *
+ * @param  string $email
+ * @return string
+ */
 function gravatar_url($email)
 {
     $email = md5($email);

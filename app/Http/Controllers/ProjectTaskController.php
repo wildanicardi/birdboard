@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\Project;
-use Illuminate\Http\Request;
 
 class ProjectTaskController extends Controller
 {
+    /**
+     * Add a task to the given project.
+     *
+     * @param Project $project
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(Project $project)
     {
         $this->authorize('update', $project);
@@ -17,6 +23,14 @@ class ProjectTaskController extends Controller
 
         return redirect($project->path());
     }
+     /**
+     * Update the project.
+     *
+     * @param  Project $project
+     * @param  Task    $task
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(Project $project, Task $task)
     {
         $this->authorize('update', $task->project);
